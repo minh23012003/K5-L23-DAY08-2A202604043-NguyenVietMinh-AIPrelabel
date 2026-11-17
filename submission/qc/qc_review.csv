@@ -1,0 +1,6 @@
+image,object_id,error_type,reviewer,note
+img_003.jpg,4,sai_vi_tri_kich_thuoc,2A202604043,box three_wheeler #4 chưa đúng kích cỡ
+img_006.jpg,88,sai_vi_tri_kich_thuoc,2A202604043,box car #88 thừa kích cỡ (rộng hơn xe)
+img_014.jpg,,khong,2A202604043,
+img_031.jpg,531,thua,2A202604043,box person #531 thừa (sát góc trên trái)
+img_035.jpg,,khong,2A202604043,
