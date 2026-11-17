@@ -1,4 +1,4 @@
-# Báo cáo Day 08 — <<MSHV - Họ và tên>>
+# Báo cáo Day 08 — 2A202604043 - Nguyễn Viết Minh
 
 > Một file duy nhất cho cả bài (đã gộp recipe, QC và ghi chú cá nhân). Mọi con số kèm **mẫu số** và nguồn (file nào). Viết bằng lời của bạn.
 
@@ -6,13 +6,13 @@
 
 | Lớp | Model + cỡ | Ngưỡng | Vì sao (dẫn `run_id` trong `model_log.csv`) |
 |---|---|---|---|
-| person / bicycle / motorbike / car / bus / truck | <<YOLO26m>> | <<theo lớp, từ threshold_sweep>> | <<>> |
-| three_wheeler | <<YOLOE-26s, prompt: ...>> | <<>> | <<>> |
+| person / bicycle / motorbike / car / bus / truck | YOLO26m (`yolo26m.pt`) | theo lớp từ `qc/threshold_sweep.md`: person 0.15 (recall 90%, 20 vật gold); motorbike 0.25 (recall 92%, 12 vật gold); bicycle / car / bus / truck giữ mặc định 0.3 | r02: bắt được person / motorbike / car / bicycle nhưng gọi tuk-tuk là truck (img_011); r03: ngưỡng chung 0.5 làm mất person và motorbike thật ở img_007 (15 box bị loại) nên phải chọn ngưỡng riêng từng lớp |
+| three_wheeler | YOLOE-26s (`yoloe-26s-seg.pt`), prompt: `tuk-tuk`, `cyclo`, `cargo tricycle` → three_wheeler | 0.15 (recall 100%, 6 vật gold; từ `qc/threshold_sweep.md`) | r04: YOLOE tìm được xe ba bánh ở img_002 / img_011 / img_032 mà YOLO26 không có lớp này (r02, r03 gọi tuk-tuk là truck); vẫn có 1 box bắt nhầm truck (img_002) và sót 3 xe (img_032) nên phải duyệt kỹ |
 
 - Lệnh `merge_prelabels.py` đã dùng (dán nguyên): <<>>
 - **Phiên bản SAM bạn chọn** (SAM 1 / 2.1 / 3) và lý do: <<chất lượng mask, tốc độ, RAM, quyền truy cập>>
-- Lỗi nào **không sửa được bằng đổi ngưỡng** (ví dụ tuk-tuk bị gọi `car`)? Sửa thế nào? <<>>
-- Box **điểm cao mà sai** hoặc **điểm thấp mà đúng** (ảnh nào): <<>>
+- Lỗi nào **không sửa được bằng đổi ngưỡng** (ví dụ tuk-tuk bị gọi `car`)? Sửa thế nào? Tuk-tuk ở img_011 bị YOLO26 gọi là `truck` với điểm 0.77: nâng `--conf` từ 0.25 lên 0.5 (r02 → r03) box vẫn còn và vẫn sai lớp, vì ngưỡng chỉ giữ / bỏ box chứ không đổi tên lớp. Sửa bằng cách đổi model: dùng YOLOE với prompt xe ba bánh cho lớp `three_wheeler` và đặt file YOLOE **trước** YOLO26 khi `merge_prelabels.py` để box `three_wheeler` thắng box `truck` / `car` trùng chỗ (IoU ≥ 0.6).
+- Box **điểm cao mà sai** hoặc **điểm thấp mà đúng** (ảnh nào): điểm cao mà sai: img_011 tuk-tuk → `truck` 0.77 (còn nguyên ở ngưỡng 0.5, r03); điểm thấp mà đúng: img_007 có person và motorbike thật với điểm 0.26–0.49 bị loại khi lên ngưỡng 0.5 (r02 → r03).
 - Giới hạn: chọn ngưỡng trên chính gold (4 ảnh) nên số đo máy trên gold là lạc quan: <<>>
 
 ## 2. AI error profile (từ `qc/review_stats.md`)
