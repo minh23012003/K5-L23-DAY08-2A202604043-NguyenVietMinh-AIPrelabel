@@ -1,7 +1,7 @@
 # Thông tin học viên
 
-- Họ và tên: <<>>
-- MSHV: <<>>
+- Họ và tên: <<Nguyễn Viết Minh>>
+- MSHV: <<2A202604043>>
 - Lớp (L2 / L3 / khác): <<L2>>
 - Tài khoản GitHub: <<minh23012003>>
 - Repo bài nộp (URL): <<https://github.com/minh23012003/K5-L23-Day08-NguyenVietMinh-2A202604043-AI-Assisted-Labeling>>
