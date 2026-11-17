@@ -5,7 +5,7 @@
 - Lớp (L2 / L3 / khác): L2
 - Tài khoản GitHub: minh23012003
 - Repo bài nộp (URL): https://github.com/minh23012003/K5-L23-Day08-NguyenVietMinh-2A202604043-AI-Assisted-Labeling
-- Commit chốt bài (hash): <<>>
+- Commit chốt bài (hash): 72e8768
 - Máy: Windows 11, NVIDIA GeForce RTX 3050 Laptop GPU (CUDA)
 - CVAT (Docker): v2.81.0
 
